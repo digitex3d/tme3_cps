@@ -43,4 +43,16 @@ public interface FilesPrio<T> {
 	// \post: \for k = 2 \to sizePrio(i) + 1 : getElem(i, k) == getElem(i, k-1)@pre
 	// \post: \forall j \in activePrios() \minus {i} : \for k = 1 \to sizePrio(j) : getElem(putPrio(j, k) == getElem(j, k)
 	public void putPrio(int i, T e) throws Exception;
+	
+	/*
+	// \pre: sizePrio(i) > 0
+	// \post: sizePrio(i) > 1 \imply activePrios() = activePrios()@pre
+	// \post: sizePrio(i) == 1 \imply activePrios() = activePrios()@pre \ {i}
+	// \post: sizePrio(i) == sizePrio(i)@pre-1  
+	// \post: \forall j \in activePrios()\ {i}, sizePrio(j) = sizePrio(j)@pre
+	// \post: \forall k \in [1 .. sizePrio(i)-1], getElem(i,k) = getElem(i,k)@pre
+	// \post: \forall activePrios() \{i}, \forall k \in [1 .. sizePrio(j)], 
+	// getElem(j,k) == getElem(j,k)@pre
+	 */	
+	public void removePrio(int i ) throws Exception;
 }
