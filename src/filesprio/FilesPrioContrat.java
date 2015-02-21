@@ -1,5 +1,10 @@
 package filesprio;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 
 	public FilesPrioContrat(FilesPrio<T> fp) {
@@ -70,5 +75,35 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 			throw new PostConditionError("sizePrio(i) == sizePrio(i)@pre + 1 ");
 		
 		checkInvariants();
+	}
+	
+	// On supprime la file de priorité i
+	public void removePrio(int i) throws Exception {
+		// Premier test des invariants
+		checkInvariants();
+		
+		// ############## Préconditions ###############
+		// \pre sizePrio(i) > 0
+		if ( !(super.sizePrio(i) > 0) ) 
+			throw new PreConditionError("!(sizePrio(i) > 0)");
+	
+		
+		super.removePrio(i);
+		
+		/*
+		// \pre: sizePrio(i) > 0
+		// \post: sizePrio(i) > 1 \imply activePrios() = activePrios()@pre
+		// \post: sizePrio(i) == 1 \imply activePrios() = activePrios()@pre \ {i}
+		// \post: sizePrio(i) == sizePrio(i)@pre-1  
+		// \post: \forall j \in activePrios()\ {i}, sizePrio(j) = sizePrio(j)@pre
+		// \post: \forall k \in [1 .. sizePrio(i)-1], getElem(i,k) = getElem(i,k)@pre
+		// \post: \forall activePrios() \{i}, \forall k \in [1 .. sizePrio(j)], 
+		// getElem(j,k) == getElem(j,k)@pre
+		 */	
+		
+		//TODO: Implementare postcondizioni
+		
+		checkInvariants();
 	}	
+	
 }
