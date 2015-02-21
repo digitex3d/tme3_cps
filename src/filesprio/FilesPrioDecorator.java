@@ -65,4 +65,9 @@ public class FilesPrioDecorator<T> implements FilesPrio<T> {
 		return this.delegate.getElem(i, k);
 	}
 
+	@Override
+	public void put(T e) throws Exception {
+		this.delegate.put(e);
+	}
+
 }

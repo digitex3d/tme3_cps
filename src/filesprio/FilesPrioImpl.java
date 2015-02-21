@@ -1,6 +1,7 @@
 package filesprio;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -20,6 +21,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public void init() {
+		activePrios = new HashMap<Integer, List<T>>();
 	}
 
 	@Override
@@ -29,7 +31,9 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 
 	@Override
 	public int sizePrio(int i) throws Exception {
-		return activePrios.get(i).size();
+		List<T> prio = activePrios.get(i);
+		
+		return (prio != null) ? prio.size() : 0;
 	}
 
 	@Override
@@ -73,5 +77,10 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	@Override
 	public T getElem(int i, int k) throws Exception {
 		return activePrios.get(i).get(k);
+	}
+
+	@Override
+	public void put(T e) throws Exception {
+		putPrio(maxPrio(), e);
 	}
 }
