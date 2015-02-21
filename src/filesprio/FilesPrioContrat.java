@@ -21,6 +21,7 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 					
 		// \inv: \forall i \in activePrios() : sizePrio(i) > 0
 		// \inv: \forall i !\in activePrios() : sizePrio(i) == 0
+		// \inv: \forall i \in activePrios() : \for k = 1 \to sizePrio(i) : getElem(i, k) != null
 		boolean testedIn, testedNotIn;
 		testedIn = testedNotIn = false;
 		
@@ -31,6 +32,10 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 				testedIn = true;
 				if (super.sizePrio(i) <= 0)
 					throw new InvariantError("\\forall i \\in activePrios() : sizePrio(i) > 0");
+				
+				for (int k = 0; k < super.sizePrio(i); k++)
+					if (getElem(i, k) == null)
+						throw new InvariantError("\\forall i \\in activePrios() : \\for k = 1 \\to sizePrio(i) : getElem(i, k) != null");
 			}
 			else if ( ! testedNotIn && ! isContained) {
 				testedNotIn = true;
