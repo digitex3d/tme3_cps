@@ -1,5 +1,7 @@
 package filesprio;
 
+import java.util.Set;
+
 public class FilesPrioDecorator<T> implements FilesPrio<T> {
 	
 	private final FilesPrio<T> delegate;
@@ -31,6 +33,36 @@ public class FilesPrioDecorator<T> implements FilesPrio<T> {
 	@Override
 	public void putPrio(int i, T e) throws Exception {
 		this.delegate.putPrio(i, e);
+	}
+
+	@Override
+	public Set<Integer> activePrios() throws Exception {
+		return this.delegate.activePrios();
+	}
+
+	@Override
+	public boolean isActivePrio(int i) throws Exception {
+		return this.delegate.isActivePrio(i);
+	}
+
+	@Override
+	public int maxPrio() throws Exception {
+		return this.delegate.maxPrio();
+	}
+
+	@Override
+	public T getPrio(int i) throws Exception {
+		return this.delegate.getPrio(i);
+	}
+
+	@Override
+	public T get() throws Exception {
+		return this.delegate.get();
+	}
+
+	@Override
+	public T getElem(int i, int k) throws Exception {
+		return this.delegate.getElem(i, k);
 	}
 
 }
