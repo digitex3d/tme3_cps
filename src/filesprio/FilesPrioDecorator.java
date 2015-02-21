@@ -65,4 +65,10 @@ public class FilesPrioDecorator<T> implements FilesPrio<T> {
 		return this.delegate.getElem(i, k);
 	}
 
+	@Override
+	public void removePrio(int i) throws Exception {
+		this.delegate.removePrio(i);
+		
+	}
+	
 }
