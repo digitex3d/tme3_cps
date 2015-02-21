@@ -145,5 +145,35 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 		super.put(e);
 				
 		checkInvariants();
+	}
+	
+	// On supprime la file de priorité i
+	public void removePrio(int i) throws Exception {
+		// Premier test des invariants
+		checkInvariants();
+		
+		// ############## Préconditions ###############
+		// \pre sizePrio(i) > 0
+		if ( !(super.sizePrio(i) > 0) ) 
+			throw new PreConditionError("!(sizePrio(i) > 0)");
+	
+		
+		super.removePrio(i);
+		
+		/*
+		// \pre: sizePrio(i) > 0
+		// \post: sizePrio(i) > 1 \imply activePrios() = activePrios()@pre
+		// \post: sizePrio(i) == 1 \imply activePrios() = activePrios()@pre \ {i}
+		// \post: sizePrio(i) == sizePrio(i)@pre-1  
+		// \post: \forall j \in activePrios()\ {i}, sizePrio(j) = sizePrio(j)@pre
+		// \post: \forall k \in [1 .. sizePrio(i)-1], getElem(i,k) = getElem(i,k)@pre
+		// \post: \forall activePrios() \{i}, \forall k \in [1 .. sizePrio(j)], 
+		// getElem(j,k) == getElem(j,k)@pre
+		 */	
+		
+		//TODO: Implementare postcondizioni
+		
+		checkInvariants();
 	}	
+	
 }

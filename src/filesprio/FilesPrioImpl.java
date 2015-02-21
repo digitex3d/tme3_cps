@@ -83,4 +83,12 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	public void put(T e) throws Exception {
 		putPrio(maxPrio(), e);
 	}
+
+	/**
+	 * On supprime la file de clé i
+	 */
+	@Override
+	public void removePrio(int i) throws Exception {
+		activePrios.remove(i);		
+	}
 }

@@ -70,4 +70,9 @@ public class FilesPrioDecorator<T> implements FilesPrio<T> {
 		this.delegate.put(e);
 	}
 
+	public void removePrio(int i) throws Exception {
+		this.delegate.removePrio(i);
+		
+	}
+	
 }
