@@ -74,4 +74,13 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	public T getElem(int i, int k) throws Exception {
 		return activePrios.get(i).get(k);
 	}
+
+	/**
+	 * On supprime la file de clé i
+	 */
+	@Override
+	public void removePrio(int i) throws Exception {
+		activePrios.remove(i);
+		
+	}
 }
