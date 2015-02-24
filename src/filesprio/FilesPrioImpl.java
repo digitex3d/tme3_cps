@@ -91,4 +91,13 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	public void removePrio(int i) throws Exception {
 		activePrios.remove(i);		
 	}
+
+	/**
+	 * Supprime la file avec la priorité plus haute
+	 */
+	@Override
+	public void remove() throws Exception {
+		activePrios.remove(maxPrio());
+		
+	}
 }

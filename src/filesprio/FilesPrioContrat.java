@@ -3,7 +3,9 @@ package filesprio;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.HashMap;
 
 public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 
@@ -157,6 +159,7 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 		if ( !(super.sizePrio(i) > 0) ) 
 			throw new PreConditionError("!(sizePrio(i) > 0)");
 	
+		final Set<Integer> activePrios_pre = super.activePrios();
 		
 		super.removePrio(i);
 		
@@ -171,9 +174,47 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 		// getElem(j,k) == getElem(j,k)@pre
 		 */	
 		
-		//TODO: Implementare postcondizioni
+		HashMap<Integer, List<List>> activePriosPost = 
+				(HashMap<Integer, List<List>>) super.activePrios();
+		
+		// \post: sizePrio(i) > 1 \imply activePrios() = activePrios()@pre
+		if( super.sizePrio(i) > 1 ){ 
+			if( this.activePrios() != activePrios_pre ) {
+				throw new PostConditionError("sizePrio(i) > 1 \\imply "
+						+ "activePrios() = activePrios()@pre");
+			}
+			
+		}
+		
+		// \post: sizePrio(i) == 1 \imply activePrios() = activePrios()@pre \ {i}
+		if( super.sizePrio(i) == 1 ){
+			activePrios_pre.remove(i);
+			if(!super.activePrios().equals(activePrios_pre) ) {
+				throw new PostConditionError("sizePrio(i) == 1 \\imply "
+						+ "activePrios() = activePrios()@pre\\ {i}");
+				
+			}
+			
+		}
+		
+		// \post: sizePrio(i) == sizePrio(i)@pre-1 
+		if( super.sizePrio(i) != activePrios_pre.size()-1 ){
+			throw new PostConditionError("\\post: sizePrio(i)"
+					+ " == sizePrio(i)@pre-1 ");
+		}
 		
 		checkInvariants();
 	}	
+	
+	public void remove() throws Exception{
+		// Pre test des invariants
+		checkInvariants();
+		
+		super.remove();
+		
+		// Post test des invariants
+		checkInvariants();
+		
+	}
 	
 }

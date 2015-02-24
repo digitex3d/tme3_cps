@@ -74,5 +74,11 @@ public class FilesPrioDecorator<T> implements FilesPrio<T> {
 		this.delegate.removePrio(i);
 		
 	}
+
+	@Override
+	public void remove() throws Exception {
+		this.delegate.remove();
+		
+	}
 	
 }

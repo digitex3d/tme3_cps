@@ -58,4 +58,9 @@ public interface FilesPrio<T> {
 	// getElem(j,k) == getElem(j,k)@pre
 	 */	
 	public void removePrio(int i) throws Exception;
+	
+	// \pre remove() require size() > 0
+	public void remove() throws Exception;
+	
+	
 }

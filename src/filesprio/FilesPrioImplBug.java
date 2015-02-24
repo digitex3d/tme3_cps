@@ -76,4 +76,16 @@ public class FilesPrioImplBug<T> implements FilesPrio<T> {
 		
 	}
 
+	@Override
+	public void put(T e) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void remove() throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
