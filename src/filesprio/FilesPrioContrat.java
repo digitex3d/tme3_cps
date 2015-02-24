@@ -7,39 +7,71 @@ import java.util.Random;
 import java.util.Set;
 import java.util.HashMap;
 
+
+
 public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
+	// Le nombre de tests aléatoires effectués sur les ensembles
+	public static final int ACCURACY= 3;
 
 	public FilesPrioContrat(FilesPrio<T> fp) {
 		super(fp);
 	}
 	
 	private void checkInvariants() throws Exception {
-		// \inv: empty() = size() == 0 
-		if (super.empty() != (super.size() == 0))
-			throw new InvariantError("empty() = size() == 0");
+		int idx;
 		
 		// \inv: size() = \sum_{\forall i \in activePrios()} : sizePrio(i)
 		int size = 0;
 		for (Integer i : super.activePrios())
 			size += super.sizePrio(i);
-		
+
 		if ( ! (super.size() == size))
 			throw new InvariantError("size() = \\sum_{\\forall i \\in activePrios()} : sizePrio(i)");
-					
+
+		// \inv: empty() = size() == 0 
+		if (super.empty() != (super.size() == 0))
+			throw new InvariantError("empty() = size() == 0");
+		
+		// \inv:isActivePrio(i) == i \in activePrios()
+		for( int i = 0; i < ACCURACY; i++){
+			idx = new Random().nextInt(super.size());
+			if( (super.isActivePrio(idx) && super.activePrios().contains(idx)  ) ){
+				throw new InvariantError("\\inv:isActivePrio(i) == i \\in activePrios()");
+			}
+
+		}
+		
+		// \inv: maxPrio() = max(activePrios(P)
+		//TODO: implementare
+		
+		// \inv: getPrio(i) == getElem(i,1)
+		for( int i = 0; i < ACCURACY; i++){
+			idx = new Random().nextInt( super.size());
+			if( !(super.getPrio(idx).equals(super.getElem(idx, 1)) )){
+				throw new InvariantError("\\inv: getPrio(i) == getElem(i,1)");
+			}
+
+		}
+
+		// \inv: get() == getPrio(maxPrio())
+		if( !(super.get().equals( super.getPrio(super.maxPrio())))){
+			throw new InvariantError("\\inv: get() == getPrio(maxPrio())");
+		}
+
 		// \inv: \forall i \in activePrios() : sizePrio(i) > 0
 		// \inv: \forall i !\in activePrios() : sizePrio(i) == 0
 		// \inv: \forall i \in activePrios() : \for k = 1 \to sizePrio(i) : getElem(i, k) != null
 		boolean testedIn, testedNotIn;
 		testedIn = testedNotIn = false;
-		
+
 		for (int i = 0; i <= super.activePrios().size(); i++) {
 			boolean isContained = super.activePrios().contains(i);
-			
+
 			if ( ! testedIn && isContained) {
 				testedIn = true;
 				if (super.sizePrio(i) <= 0)
 					throw new InvariantError("\\forall i \\in activePrios() : sizePrio(i) > 0");
-				
+
 				for (int k = 0; k < super.sizePrio(i); k++)
 					if (getElem(i, k) == null)
 						throw new InvariantError("\\forall i \\in activePrios() : \\for k = 1 \\to sizePrio(i) : getElem(i, k) != null");
@@ -52,6 +84,9 @@ public class FilesPrioContrat<T> extends FilesPrioDecorator<T> {
 			else if (testedIn && testedNotIn)
 				break;
 		}
+
+
+
 	}
 	
 	public void init() throws Exception {
