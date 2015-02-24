@@ -8,7 +8,7 @@ import java.util.Set;
 
 public class FilesPrioImpl<T> implements FilesPrio<T> {
 
-	private Map<Integer, List<T>> activePrios;
+	public Map<Integer, List<T>> activePrios;
 	
 	@Override
 	public int size() {
@@ -82,6 +82,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	@Override
 	public void put(T e) throws Exception {
 		putPrio(maxPrio(), e);
+		
 	}
 
 	/**
@@ -90,6 +91,7 @@ public class FilesPrioImpl<T> implements FilesPrio<T> {
 	@Override
 	public void removePrio(int i) throws Exception {
 		activePrios.remove(i);		
+		
 	}
 
 	/**
